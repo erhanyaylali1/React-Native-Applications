@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import CategoriesScreen from '../screens/CategoriesScreen';
+import { createStackNavigator } from '@react-navigation/stack'
+import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryScreen from '../screens/CategoryScreen'
 import FoodDetailScreen from '../screens/FoodDetailScreen'
-import { AntDesign } from '@expo/vector-icons'; 
-import { MaterialIcons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux'
+import { getFavoriteFoods, addFavoriteFoods, deleteFavoriteFood } from '../redux/foodsSlice'
+import { AntDesign } from '@expo/vector-icons' 
+import { MaterialIcons } from '@expo/vector-icons'
 
 const Stack = createStackNavigator();
 
@@ -69,15 +70,33 @@ const MealsNavigation = () => {
             <Stack.Screen 
                 name="FoodDetail" 
                 component={FoodDetailScreen} 
-                options={({ route }) => ({
-                    title: route.params.title,
+                options={({ route, navigation }) => ({
+                    title: route.params.item.title,
                     headerTitleAlign: 'center',
-                    headerRight: () => (
-                        <Button
-                            icon={<MaterialIcons name="favorite-outline" size={22} color="#333" />}
-                            type="clear"
-                        />
-                    ),
+                    headerRight: () => {
+                        const isFavorited = useSelector(getFavoriteFoods).find((item) => item === route.params.item)
+                        const dispatch = useDispatch()
+                        if(isFavorited) {
+                            return (
+                                <Button
+                                    icon={<MaterialIcons name="favorite" size={22} color="#333" />}
+                                    type="clear"
+                                    onPress={() => dispatch(deleteFavoriteFood(route.params.item))}
+                                />
+                            )
+                        } else {
+                            return (
+                                <Button
+                                    icon={<MaterialIcons name="favorite-outline" size={22} color="#333" />}
+                                    type="clear"
+                                    onPress={() => {
+                                        dispatch(addFavoriteFoods(route.params.item))
+                                        navigation.navigate('Favorites')
+                                    }}
+                                />
+                            )
+                        }
+                    },
                     headerRightContainerStyle: {
                         marginRight: 10
                     }    

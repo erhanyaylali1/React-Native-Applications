@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Text, Card } from 'react-native-elements'
 
-const MealItem = ({ item, navigation, color }) => {
+const MealItem = ({ item, navigation }) => {
 
     return (
         <TouchableOpacity 
@@ -10,8 +10,7 @@ const MealItem = ({ item, navigation, color }) => {
             style={styles.container}
             onPress={() => navigation.navigate('FoodDetail', {
                 id: item.id,
-                title: item.title,
-                color: color
+                item,
             })}
         >
             <Card containerStyle={styles.card}>

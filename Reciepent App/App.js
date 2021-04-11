@@ -1,9 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar'
+import React, { useState } from 'react'
 import * as Font from 'expo-font'
-import AppLoading from 'expo-app-loading';
-import MealsNavigation from './navigation/MealsNavigation'
-import TabNavigation from './navigation/TabNavigation';
+import AppLoading from 'expo-app-loading'
+import TabNavigation from './navigation/TabNavigation'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const fetchFonts = () => {
     return Font.loadAsync({
@@ -12,23 +13,27 @@ const fetchFonts = () => {
     })
 }
 
-export default function App() {
+const App = () => {
 
     const [fontLoaded, setFontLoaded] = useState(false)
 
     if (!fontLoaded) {
         return (
-            <AppLoading 
-                startAsync={fetchFonts} 
-                onFinish={() => setFontLoaded(true)} 
-                onError={() => console.log("error")}
-            />
+            <Provider store={store}>
+                <AppLoading 
+                    startAsync={fetchFonts} 
+                    onFinish={() => setFontLoaded(true)} 
+                    onError={() => console.log("error")}
+                />
+            </Provider>
         )
     }
     return (
-        <React.Fragment>
+        <Provider store={store}>
             <TabNavigation />
             <StatusBar />
-        </React.Fragment>
+        </Provider>
     )
 }
+
+export default App

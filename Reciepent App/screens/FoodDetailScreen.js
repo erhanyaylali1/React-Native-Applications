@@ -1,16 +1,19 @@
 import React from 'react'
 import { StyleSheet, ScrollView, View, LogBox } from 'react-native'
 import { Text, Image } from 'react-native-elements'
-import { MEALS } from '../data/data'
+import{ useSelector } from 'react-redux'
+import { getFoods } from '../redux/foodsSlice'
 import { AntDesign } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import CardDetailItem from '../components/CardDetailItem'
 
 const FoodDetailScreen = ({ route }) => {
+
     LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+
     const id = route.params.id
-    const meal = MEALS.find((item) => item.id === id)
+    const meal = useSelector(getFoods).find((item) => item.id === id)
     
     const data = [
         {

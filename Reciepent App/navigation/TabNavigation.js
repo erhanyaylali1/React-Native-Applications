@@ -1,27 +1,21 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
 import MealsNavigation from './MealsNavigation'
-import Favorites from '../screens/FavoritesScreen'
-import { MaterialIcons } from '@expo/vector-icons';
+import FavoritesNavigation from './FavoritesNavigation'
+import { MaterialIcons } from '@expo/vector-icons'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
-const Tab = createBottomTabNavigator();
+
+const Tab = createMaterialBottomTabNavigator();
 
 const TabNavigation = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator 
                 initialRouteName="Meals"
-                tabBarOptions={{
-                    style: { height: 60 },
-                    tabStyle: {
-                        paddingVertical: 7,
-                    },
-                    labelStyle: {
-                        fontSize: 14,
-                        marginTop: 2
-                    }
-                }}
+                activeColor="blue"
+                shifting
+                barStyle={{ backgroundColor: 'white' }}
             >
                 <Tab.Screen 
                     name="Meals" 
@@ -30,12 +24,12 @@ const TabNavigation = () => {
                         tabBarIcon: ({ focused }) => {
                             const color = focused ? 'blue':'#333'
                             return <MaterialIcons name="fastfood" size={24} color={color} />
-                        },
+                        }
                     })}
                 />
                 <Tab.Screen 
                     name="Favorites" 
-                    component={Favorites} 
+                    component={FavoritesNavigation} 
                     options={() => ({
                         tabBarIcon: ({ focused }) => {                            
                             const color = focused ? 'blue':'#333'
