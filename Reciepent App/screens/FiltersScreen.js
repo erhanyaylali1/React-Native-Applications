@@ -17,9 +17,9 @@ const FiltersScreen = ({ navigation }) => {
     const [number, setNumber] = useState([0, 30])
 
     const durations = [[],[]]
-    for (let index = 0; index < 13; index++) {
-        durations[0].push({ label: `${index * 10} min`, value: index * 10})
-        durations[1].push({ label: `${index * 10} min`, value: index * 10})
+    for (let index = 0; index < 17; index++) {
+        durations[0].push({ label: `${index * 15} min`, value: index * 15})
+        durations[1].push({ label: `${index * 15} min`, value: index * 15})
     }
 
     const filters = { gluten, lactose, vegan, vegeterian, timeRange, number }
