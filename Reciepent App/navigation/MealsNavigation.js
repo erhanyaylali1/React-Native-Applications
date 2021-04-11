@@ -6,8 +6,7 @@ import CategoryScreen from '../screens/CategoryScreen'
 import FoodDetailScreen from '../screens/FoodDetailScreen'
 import { useSelector, useDispatch } from 'react-redux'
 import { getFavoriteFoods, addFavoriteFoods, deleteFavoriteFood } from '../redux/foodsSlice'
-import { AntDesign } from '@expo/vector-icons' 
-import { MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, MaterialIcons } from '@expo/vector-icons' 
 
 const Stack = createStackNavigator();
 
@@ -15,6 +14,7 @@ const MealsNavigation = () => {
     return (
         <Stack.Navigator 
             initialRouteName="Categories" 
+            mode="modal"
             screenOptions={({ navigation }) => ({
                 headerLeft: () => (
                     <Button 
@@ -27,18 +27,25 @@ const MealsNavigation = () => {
                 headerLeftContainerStyle: {
                     marginLeft: 10
                 },
+                animationEnabled: true,
             })}
         >
             <Stack.Screen 
                 name="Categories" 
                 component={CategoriesScreen} 
-                options={() => ({
+                options={({ navigation }) => ({
                     title: "Meal Categories",
                     headerTitleStyle: {
                         marginLeft: 10
                     },
                     headerTitleAlign: 'center',
-                    headerLeft: null
+                    headerLeft: () => (
+                        <Button
+                            type="clear"
+                            icon={<MaterialIcons name="menu" size={24} color="#111" />}
+                            onPress={() => navigation.openDrawer()}
+                        />
+                    )
                 })}                    
             />
 

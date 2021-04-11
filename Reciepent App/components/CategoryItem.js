@@ -11,7 +11,8 @@ const CategoryItem = ({ item, navigation }) => {
                 onPress={() => navigation.navigate('Category', {
                     id: item.id,
                     title: item.title,
-                    color: item.color
+                    color: item.color,
+                    type: 'Category'
                 })}
             >
                 <ListItem containerStyle={{ ...styles.itemContainer}}>

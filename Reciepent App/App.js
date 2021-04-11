@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
-import TabNavigation from './navigation/TabNavigation'
+import DrawerNavigation from './navigation/DrawerNavigation'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
@@ -30,7 +30,7 @@ const App = () => {
     }
     return (
         <Provider store={store}>
-            <TabNavigation />
+            <DrawerNavigation />
             <StatusBar />
         </Provider>
     )

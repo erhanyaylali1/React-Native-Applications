@@ -11,18 +11,33 @@ const Stack = createStackNavigator();
 
 const MealsNavigation = () => {
     return (
-        <Stack.Navigator initialRouteName="Favorites">
+        <Stack.Navigator 
+            initialRouteName="Favorites"
+            screenOptions={() => ({
+                headerLeftContainerStyle: {
+                    marginLeft: 10
+                },
+            })}
+        >
             <Stack.Screen 
                 name="Favorites" 
                 component={FavoritesScreen}
-                options={{
+                options={({ navigation })  => ({
                     headerTitleAlign: 'center',
-                }}
+                    headerLeft: () => (
+                        <Button
+                            type="clear"
+                            icon={<MaterialIcons name="menu" size={24} color="#333" />}
+                            onPress={() => navigation.openDrawer()}
+                        />
+                    ),
+                    title:"Your Favorites",
+                })}
             />
             <Stack.Screen 
                 name="FoodDetail" 
                 component={FoodDetailScreen} 
-                options={({ route, navigation }) => ({
+                options={({ route, navigation }) => ({  
                     title: route.params.title,
                     headerTitleAlign: 'center',
                     headerLeft: () => (
@@ -33,9 +48,6 @@ const MealsNavigation = () => {
                             onPress={() => navigation.goBack()}
                         />
                     ),
-                    headerLeftContainerStyle: {
-                        marginLeft: 10
-                    },
                     headerRight: () => {
                         const dispatch = useDispatch()
                         return (

@@ -7,8 +7,31 @@ import { getFoods } from '../redux/foodsSlice'
 const CategoryScreen = ({ route, navigation }) => {
     
     const id = route.params.id
-    const meals = useSelector(getFoods).filter((item) => item.categoryIds.indexOf(id) >= 0)
-
+    let meals;
+    if(route.params.type === 'Category'){
+        meals = useSelector(getFoods).filter((item) => item.categoryIds.indexOf(id) >= 0)
+    } else if(route.params.type === 'Filter') {
+        const { gluten, lactose, vegan, vegeterian, timeRange, number } = route.params.filters
+        meals = useSelector(getFoods).filter((item) => {
+            if(gluten) 
+                if(!item.isGlutenFree)
+                    return 
+            if(lactose)
+                if(!item.isLactoseFree)
+                    return 
+            if(vegan)         
+                if(!item.isVegan)
+                    return 
+            if(vegeterian)
+                if(!item.isVegetarian)
+                    return 
+            if(timeRange)
+                if(item.duration < Math.min(...number) || item.duration > Math.max(...number))
+                    return
+            return item          
+        })
+    }
+    
     return (
         <View style={styles.container}>
             <FlatList
