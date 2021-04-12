@@ -52,7 +52,7 @@ const MealsNavigation = () => {
                         const dispatch = useDispatch()
                         return (
                             <Button
-                                icon={<MaterialIcons name="favorite" size={22} color="#333" />}
+                                icon={<MaterialIcons name="favorite" size={22} color="red" />}
                                 type="clear"
                                 onPress={() => {
                                     dispatch(deleteFavoriteFood(route.params.item))

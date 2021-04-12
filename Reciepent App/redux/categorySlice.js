@@ -23,7 +23,7 @@ export const categorySlice = createSlice({
     reducers: {
         addCategory: (state, action) => {
             state.categories.push(action.payload)
-        }
+        },
     },
 })
 

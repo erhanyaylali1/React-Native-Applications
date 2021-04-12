@@ -9,7 +9,9 @@ import store from './redux/store'
 const fetchFonts = () => {
     return Font.loadAsync({
         'open-sans': require('./assets/Fonts/OpenSans-Regular.ttf'),
-        'open-sans-bold': require('./assets/Fonts/OpenSans-Bold.ttf')
+        'open-sans-bold': require('./assets/Fonts/OpenSans-Bold.ttf'),
+        'antoutline': require('@ant-design/icons-react-native/fonts/antoutline.ttf'),
+        'antfill': require('@ant-design/icons-react-native/fonts/antfill.ttf')
     })
 }
 

@@ -340,7 +340,7 @@ export const foodSlice = createSlice({
     },
 });
 
-export const { addFood, addFavoriteFoods, deleteFavoriteFood } = foodSlice.actions;
-export const getFoods = (state) => state.foods.foods;
-export const getFavoriteFoods = (state) => state.foods.favoriteFoods;
+export const { addFood, addFavoriteFoods, deleteFavoriteFood } = foodSlice.actions
+export const getFoods = (state) => state.foods.foods
+export const getFavoriteFoods = (state) => state.foods.favoriteFoods
 export default foodSlice.reducer;

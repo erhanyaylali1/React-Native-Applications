@@ -7,6 +7,7 @@ import FoodDetailScreen from '../screens/FoodDetailScreen'
 import { useSelector, useDispatch } from 'react-redux'
 import { getFavoriteFoods, addFavoriteFoods, deleteFavoriteFood } from '../redux/foodsSlice'
 import { AntDesign, MaterialIcons } from '@expo/vector-icons' 
+import AddFoodScreen from '../screens/AddFoodScreen'
 
 const Stack = createStackNavigator();
 
@@ -52,7 +53,7 @@ const MealsNavigation = () => {
             <Stack.Screen 
                 name="Category" 
                 component={CategoryScreen} 
-                options={({ route }) => ({
+                options={({ route, navigation }) => ({
                     title: route.params.title,
                     headerTitleAlign: 'center',
                     headerStyle: {
@@ -66,12 +67,20 @@ const MealsNavigation = () => {
                         <Button
                             icon={<AntDesign name="plus" size={22} color="#333" />}
                             type="clear"
+                            onPress={() => navigation.navigate('Add')}
                         />
                     ),
                     headerRightContainerStyle: {
                         marginRight: 10
                     }                        
                 })}
+            />
+            <Stack.Screen
+                name="Add"
+                component={AddFoodScreen}
+                options={{
+                    headerTitle: 'Add Food'
+                }}
             />
 
             <Stack.Screen 
@@ -86,7 +95,7 @@ const MealsNavigation = () => {
                         if(isFavorited) {
                             return (
                                 <Button
-                                    icon={<MaterialIcons name="favorite" size={22} color="#333" />}
+                                    icon={<MaterialIcons name="favorite" size={22} color="red" />}
                                     type="clear"
                                     onPress={() => dispatch(deleteFavoriteFood(route.params.item))}
                                 />
@@ -96,10 +105,7 @@ const MealsNavigation = () => {
                                 <Button
                                     icon={<MaterialIcons name="favorite-outline" size={22} color="#333" />}
                                     type="clear"
-                                    onPress={() => {
-                                        dispatch(addFavoriteFoods(route.params.item))
-                                        navigation.navigate('Favorites')
-                                    }}
+                                    onPress={() => dispatch(addFavoriteFoods(route.params.item))}
                                 />
                             )
                         }
