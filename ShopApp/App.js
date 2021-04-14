@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading'
 import ShopNavigator from './navigation/ShopNavigator'
 import { NavigationContainer } from '@react-navigation/native'
 import { BreadProvider } from "material-bread"
+import { ThemeProvider } from 'react-native-magnus'
 
 export default function App() {
 
@@ -14,7 +15,8 @@ export default function App() {
 
     const fetchFonts = () => {
         return Font.loadAsync({
-            'antoutline': require('@ant-design/icons-react-native/fonts/antoutline.ttf')
+            'antoutline': require('@ant-design/icons-react-native/fonts/antoutline.ttf'),
+            'antfill': require('@ant-design/icons-react-native/fonts/antfill.ttf')
         })      
     }
 
@@ -29,13 +31,15 @@ export default function App() {
     }
 
     return (
-        <BreadProvider>
-            <Provider store={store}>
-                <NavigationContainer>
-                    <ShopNavigator />
-                </NavigationContainer>
-            </Provider>
-        </BreadProvider>
+        <ThemeProvider>
+            <BreadProvider>
+                <Provider store={store}>
+                    <NavigationContainer>
+                        <ShopNavigator />
+                    </NavigationContainer>
+                </Provider>
+            </BreadProvider>
+        </ThemeProvider>
     );
 }
 

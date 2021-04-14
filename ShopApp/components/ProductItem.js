@@ -1,32 +1,40 @@
 import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { Paper } from 'material-bread'
-import { Title, Paragraph, IconButton } from 'react-native-paper'
-import { Card, Text } from 'react-native-elements'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Title, Paragraph } from 'react-native-paper'
+import { Text, Button } from 'react-native-elements'
+import { addItemToCart } from '../store/UserSlice'
+import { useDispatch } from 'react-redux'
 
-const ProductItem = ({ item }) => {
+const ProductItem = ({ item, navigation }) => {
+    const dispatch = useDispatch()
     return (
-        <Paper
-            style={styles.paper}
-            shadow={3}
-        >
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
+        <Paper style={styles.paper} shadow={3}>
+            <Image source={{ uri: item.imageUrl }} style={styles.image}/>
             <View style={styles.content}>
                 <Title>{ item.title }</Title> 
                 <Paragraph>{ item.description} </Paragraph>
             </View>
             <View style={styles.actions}>
-                <View style={styles.div} />
-                <View style={styles.div} >
+                <View>
                     <Text h5 style={styles.price}>$ { item.price } </Text>
                 </View>
-                <View style={[styles.div, styles.buttonDiv]} >
-                    <IconButton 
-                        icon="cart-plus"
-                        size={25}
-                        onPress={() => null}
-                    />
+                <View style={styles.buttons}>
+                    <View style={styles.detailDiv}>
+                        <Button 
+                            style={styles.detailButton}
+                            title="View Detail"
+                            type="clear"
+                            onPress={() => navigation.navigate('Product',{ item })}
+                        />
+                    </View>                        
+                    <View>
+                        <Button
+                            title="Add to Cart"
+                            type="clear"
+                            onPress={() => dispatch(addItemToCart(item))}
+                        />
+                    </View>
                 </View>
             </View>
         </Paper>
@@ -39,14 +47,15 @@ const styles = StyleSheet.create({
     paper: {
         marginBottom: 20,
         borderRadius: 10,
-        paddingHorizontal: 20
+        overflow: 'hidden'
     },
     image: {
         height: 200,
         width: '100%',
     },
     content: {
-        paddingVertical: 10
+        paddingVertical: 10,
+        paddingHorizontal: 20,
     },
     divider: {
         marginBottom: 0
@@ -55,17 +64,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginBottom: 10,
+        paddingHorizontal: 20
     },
     price: {
         textAlign: 'center',
         fontSize: 17,
-        fontWeight: '500',
+        color: 'black',
+        fontWeight: '700',
     },
-    div: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    buttonDiv: {
-        justifyContent: 'flex-end'
+    buttons: {
+        flexDirection: 'row'
     }
 })
